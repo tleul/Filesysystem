@@ -1,6 +1,10 @@
 const express = require('express');
-
+const fs = require('fs');
 const router = express.Router();
-
-router.get('/', (req, res) => {});
+const tododata = 'user.json';
+router.get('/', (req, res) => {
+	fs.readFile(tododata, function (err, data) {
+		res.json(JSON.parse(data));
+	});
+});
 module.exports = router;
