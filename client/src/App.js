@@ -1,11 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
+import Navbar from './component/Navbar';
+
+import Home from './component/Home';
+import './App.css';
 function App() {
 	return (
-		<div className='App'>
-			<h1>Home </h1>
+		<div className='container-fluid '>
+			<Navbar />
+			<Home />
 		</div>
 	);
 }
