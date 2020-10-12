@@ -1,9 +1,11 @@
 const express = require('express');
+const { title } = require('process');
 fs = require('fs');
 const router = express.Router();
 const tododata = 'user.json';
 const data = require('../user.json');
 router.post('/', (req, res) => {
+	const { title, desc } = req.body;
 	todo = {
 		id: 1,
 		title: 'first TODO',
