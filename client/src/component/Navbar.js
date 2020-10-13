@@ -20,17 +20,17 @@ function Navbar() {
 				<div className='collapse navbar-collapse' id='navbarNav'>
 					<ul className='navbar-nav'>
 						<li className='nav-item active'>
-							<a className='nav-link text-light' href='#'>
+							<a className='nav-link text-light' href='/'>
 								Home <span className='sr-only'>(current)</span>
 							</a>
 						</li>
 						<li className='nav-item'>
-							<a className='nav-link text-light' href='#'>
+							<a className='nav-link text-light' href='/'>
 								Expired Todo
 							</a>
 						</li>
 						<li className='nav-item'>
-							<a className='nav-link text-light' href='#'>
+							<a className='nav-link text-light' href='/'>
 								Completed Todo
 							</a>
 						</li>

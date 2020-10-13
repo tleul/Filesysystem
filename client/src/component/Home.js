@@ -16,7 +16,15 @@ const Home = (props) => {
 		if (datecheck > 0) {
 			setdate({ duedate: moment(day) });
 		} else {
-			console.log('past');
+			const p = document.createElement('p');
+			p.innerHTML = 'Please Provide future date';
+			const div = document.querySelector('.error');
+			div.style.color = 'red';
+
+			div.append(p);
+			setTimeout(() => {
+				p.innerHTML = '';
+			}, 3000);
 		}
 	};
 	const { tododesc, todoname } = form;
@@ -24,13 +32,31 @@ const Home = (props) => {
 		setform({ ...form, [e.target.name]: e.target.value });
 	const submithandler = (e) => {
 		e.preventDefault();
-		let body = { ...date, ...form };
-		console.log(body);
+
+		if (
+			tododesc.length > 1 &&
+			todoname.length > 1 &&
+			date.duedate.length !== 0
+		) {
+			let body = { ...date, ...form };
+			console.log(body);
+		} else {
+			const p = document.createElement('p');
+			p.innerHTML = 'Please Provide future date';
+			const div = document.querySelector('.error');
+			div.style.color = 'red';
+
+			div.append(p);
+			setTimeout(() => {
+				p.innerHTML = '';
+			}, 3000);
+		}
 	};
 	return (
 		<>
 			<div className='form'>
 				<form action=''>
+					<div className='error'></div>
 					<label htmlFor='todoname'>Title</label>
 					<div>
 						<input
