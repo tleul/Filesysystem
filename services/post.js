@@ -2,14 +2,17 @@ const express = require('express');
 const { title } = require('process');
 fs = require('fs');
 const router = express.Router();
+const { v4: uuidv4 } = require('uuid');
 const tododata = 'user.json';
 const data = require('../user.json');
 router.post('/', (req, res) => {
-	const { title, desc } = req.body;
+	const { todoname, tododesc, duedate } = req.body;
+	console.log(tododesc);
 	todo = {
-		id: 1,
-		title: 'first TODO',
-		desc: 'This is the first to do to be tested ',
+		id: uuidv4(),
+		title: todoname,
+		desc: tododesc,
+		duedate,
 	};
 
 	data.push(todo);
