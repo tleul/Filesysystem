@@ -1,0 +1,95 @@
+/*
+Libs included:
+    underscore lodash chai sinon sinon-chai mocha async request q bluebird jsdom
+*/
+
+console.log('Hello, world!');
+
+// meeting : [start_time, end_time]
+
+// start_time, end_time : 0 ... +++
+
+// input : [ [s1, e1], [s2, e2], ... ]
+
+// output : [ [s1, e1], [s2, e2], ... ]
+
+// input = [[1,4], [2,5], [9,10]]
+// output = [[1,5], [9,10]]
+
+// let input = [[3,5], [2,6], [7,8], [0,8]]
+// output = [[0,8]]
+
+/*
+const scheduler = (input) => {
+    let output = []
+     let temp;
+    
+    for(let i=0; i < input.length; i++){
+        
+       if(input[i][0] < input[i][1]){
+          
+          output.push(input[i][0]);
+          
+          
+          }
+    console.log(output)
+        
+    }
+       
+
+}
+*/
+
+// arr=[1,3,6,9,15,20], target=6 // target in array
+// output=2 // return target's index
+
+let arr=[1,3,6,9,15,20,123, ... , 123129837198273981273]
+let target=14
+
+// binary search
+
+// target not in array
+// output=4 // return next biggest number's index
+
+// arr=[1,3,6,9,15,20], target=21 // target not in array and there is no other number that is greater than target
+// output=-1 // return -1
+
+function testtwo (arr, target){
+    
+    for(let i=0; i < arr.length; i++){
+    
+        if(arr[i] >= target){
+         
+            return i
+            
+        }
+            
+            
+    
+    }
+    
+    return -1
+}
+    
+    
+console.log(testtwo(arr, target))
+
+// O(n)
+
+// O(log n)
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
