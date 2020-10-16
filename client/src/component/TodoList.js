@@ -15,69 +15,66 @@ const TodoList = ({ data }) => {
 		let today = moment();
 		let duedatemom = moment(duedate);
 
-		console.log(duedatemom.diff(today));
+		return duedatemom.diff(today, 'days');
 	};
 	console.log(editing);
 	const edithandler = (todo) => {
-		if (editing == false) {
-			const inputtitle = document.querySelector(`.tite-${todo.id}`);
-			const inputdesc = document.querySelector(`.name-${todo.id}`);
-			const inputdate = document.querySelector(`.date-${todo.id}`);
-			inputtitle.style.display = 'block';
-			inputdesc.style.display = 'block';
-			inputdate.style.display = 'block';
-			inputtitle.value = todo.title;
-			inputdesc.value = todo.desc;
-			inputdate.value = todo.duedate;
-			const btn = document.querySelector(`.btn-${todo.id}`);
-			btn.style.display = 'none';
-			const divedit = document.querySelector(`.edit-${todo.id}`);
-
-			const btnsubmit = document.createElement('button');
-			btnsubmit.setAttribute('class', `sub-btn-${todo.id}`);
-			btnsubmit.innerHTML = 'Submit';
-			divedit.appendChild(btnsubmit);
-			divedit.addEventListener('click', async function () {
-				//TODO
-				// const res = await api.put('/put', { body: 'test' });
-
-				let id = todo.id;
-				let newtitle = inputtitle.value;
-				let newdesc = inputdesc.value;
-				let newduedate = inputdate.value;
-				const body = { newtitle, newdesc, newduedate, id };
-				const res = await api.put('/put', JSON.stringify(body));
-
-				inputtitle.style.display = 'none';
-				inputdesc.style.display = 'none';
-				inputdate.style.display = 'none';
-				let subbtn = document.querySelector(`.sub-btn-${todo.id}`);
-				const divedit = document.querySelector(`.edit-${todo.id}`);
-				subbtn.style.display = 'none';
-				const btn = document.querySelector(`.btn-${todo.id}`);
-				btn.style.display = 'block';
-			});
-		}
-
+		const inputtitle = document.querySelector(`.tite-${todo.id}`);
+		const inputdesc = document.querySelector(`.name-${todo.id}`);
+		const inputdate = document.querySelector(`.date-${todo.id}`);
+		inputtitle.style.display = 'block';
+		inputdesc.style.display = 'block';
+		inputdate.style.display = 'block';
+		inputtitle.value = todo.title;
+		inputdesc.value = todo.desc;
+		inputdate.value = todo.duedate;
+		const btnedit = document.querySelector(`.edit-btn-${todo.id}`);
+		btnedit.style.display = 'none';
+		const btnsubmit = document.querySelector(`.submit-btn-${todo.id}`);
+		btnsubmit.style.display = 'block';
 		// const input = document.createElement('input');
 		// input.setAttribute('type', 'text');
 		// div.appendChild(input);
 		// console.log(input);,
 		// console.log(div);
 	};
+	const submithandler = async (todo) => {
+		const inputtitle = document.querySelector(`.tite-${todo.id}`);
+		const inputdesc = document.querySelector(`.name-${todo.id}`);
+		const inputdate = document.querySelector(`.date-${todo.id}`);
+		let id = todo.id;
+		let newtitle = inputtitle.value;
+		let newdesc = inputdesc.value;
+		let newduedate = inputdate.value;
+		const body = { newtitle, newdesc, newduedate, id };
+		const res = await api.put('/put', JSON.stringify(body));
 
+		inputtitle.style.display = 'none';
+		inputdesc.style.display = 'none';
+		inputdate.style.display = 'none';
+		const btnedit = document.querySelector(`.edit-btn-${todo.id}`);
+		btnedit.style.display = 'block';
+		const btnsubmit = document.querySelector(`.submit-btn-${todo.id}`);
+		btnsubmit.style.display = 'none';
+		settododata(res.data);
+	};
 	return (
 		<div className='result'>
 			{tododata.map((todo) => (
 				<section key={todo.id} className='result-content'>
 					<div className={`edit edit-${todo.id}`}>
 						<button
-							className={`btn-${todo.id}`}
+							className={`submit-btn-${todo.id} hidden`}
+							onClick={() => submithandler(todo)}>
+							Submit
+						</button>
+						<button
+							className={`edit-btn-${todo.id}`}
 							onClick={() => edithandler(todo)}>
 							EDIT
 						</button>
 					</div>
-					<div className='todotitle'>
+					<div className=' todotitle'>
 						<p>{todo.title}</p>
 						<input
 							className={`hidden tite-${todo.id}`}
@@ -92,7 +89,11 @@ const TodoList = ({ data }) => {
 						/>
 					</div>
 					<div className='duedate'>
-						<p>{moment(todo.duedate).format('MM DD YYYY')}</p>
+						<p>
+							{checkExpiration(todo.duedate) < 1
+								? 'Expired'
+								: checkExpiration(todo.duedate)}
+						</p>
 						<input
 							className={`hidden date-${todo.id}`}
 							type='text'
